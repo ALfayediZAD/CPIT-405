@@ -1,0 +1,21 @@
+
+.image-preview img {
+  width: 200px;
+  border-bottom: 30px solid lightgreen;
+  border-top: 30px solid skyblue;
+  border-left: 30px solid #ffefd5;
+  border-right: 30px solid lightpink;
+  display: block;
+}
+
+
+
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: center;
+}
