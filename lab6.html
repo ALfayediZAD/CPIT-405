@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPIT-405 Lab 6</title>
+    <link rel="stylesheet" href="Style6.css">
+</head>
+<body>
+    <h1>Lab 6</h1>
+    <h2>Like or Dislike</h2>
+    <div class="voteContainer">
+        <button id="LikeButn" class="voteButn">
+            👍 <span id="LikeCount">0</span>
+        </button>
+        <button id="DislikeButn" class="voteButn">
+            👎<span id="DislikeCount">0</span>
+        </button>
+    </div>
+
+  <h2>Comments</h2>
+  <div class="Comments">
+    <textarea id="commentInput" placeholder="Write a comment..."></textarea>
+  </div>
+<div class="actions">
+    <button id="submitCommentBtn" class="action-btn">Submit</button>
+    <button id="resetBtn" class="action-btn">Clear</button>
+  </div>
+
+  <div id="message"></div>
+
+  <div id="commentsSection">
+    <h3>Submitted Comment</h3>
+    <div id="commentsList"></div>
+  </div>
+
+  <script src="script6.js"></script>
+</body>
+</html>
