@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CPIT-405 Lab 7</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #fff; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 2px solid #ccc;
+      background: #fff;
+    }
+
+    nav h1 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    nav input[type="text"] {
+      padding: 7px 10px;
+      border: 1px solid #aaa;
+      font-size: 0.95rem;
+      width: 200px;
+      outline: none;
+    }
+
+    nav button {
+      padding: 7px 14px;
+      background: #444;
+      color: #fff;
+      border: none;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    nav button:hover { background: #222; }
+
+   
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    #gallery img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    #status {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px;
+      color: #888;
+      font-size: 0.95rem;
+    }
+  </style>
+
+</head>
+<body>
+
+<nav>
+  <h1>Unsplash API</h1>
+  <input type="text" id="query"/>
+  <button onclick="doSearch('xhr')">Search using XHR</button>
+  <button onclick="doSearch('fetch')">Search using fetch (promises)</button>
+  <button onclick="doSearch('async')">Search using fetch (async/await)</button>
+</nav>
+
+<div id="gallery">
+  <p id="status">Type a keyword and click a search button.</p>
+</div>
+<script src="script7.js"></script>
+</body>
+</html>
