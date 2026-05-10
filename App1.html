@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Quiz | Zad Alfayedi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<header class="top-header">
+  <div class="header-content">
+    <h1>Zad Alfayedi <span>IT Student</span></h1>
+        <nav>
+      <a href="index.html">CV</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="contact.html">Contact</a>
+      <a href="Labs.html">Labs</a>
+      <a href="MyWorks.html" class="active">My Works</a>
+    </nav>
+  </div>
+</header>
+ 
+<div class="container">
+ 
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <img src="IMAGES/quiz.jpg" alt="Profile">
+    <h3>App Info</h3>
+    <div class="contact-box">
+      <p><strong>Type:</strong> JavaScript Quiz</p><br>
+      <p><strong>No external APIs</strong> — 50 built-in questions.</p><br>
+      <p>Pick a category &amp; difficulty, beat the timer, build streaks!</p>
+    </div>
+    <div id="hs-sidebar" class="hs-panel" style="display:none">
+      <h3>High Scores</h3>
+      <div id="hs-list"></div>
+    </div>
+    <div style="margin-top:20px">
+      <a href="MyWorks.html" class="sidebar-back-btn">← Back to My Works</a>
+    </div>
+  </aside>
+ 
+  <!-- MAIN -->
+  <main class="content">
+    <div class="app-wrap">
+ 
+      <!-- ── HOME ───────────────────────────────────── -->
+      <div id="screen-home">
+        <div class="app-heading">🧠 Fun Quiz</div>
+        <div class="app-heading-sub">Choose a category, pick your difficulty, and race the clock!</div>
+ 
+        <div class="section-lbl">Category</div>
+        <div class="cat-grid" id="cat-grid"></div>
+ 
+        <div class="section-lbl">Difficulty</div>
+        <div class="diff-row">
+          <button class="diff-btn on" onclick="setDiff('easy',this)">🟢 Easy<br><small style="font-weight:400;font-size:11px">20 s · 6 Qs</small></button>
+          <button class="diff-btn"    onclick="setDiff('medium',this)">🟡 Medium<br><small style="font-weight:400;font-size:11px">13 s · 8 Qs</small></button>
+          <button class="diff-btn"    onclick="setDiff('hard',this)">🔴 Hard<br><small style="font-weight:400;font-size:11px">8 s · 10 Qs</small></button>
+        </div>
+ 
+        <button class="start-btn" id="start-btn" onclick="startQuiz()" disabled>Select a category to begin</button>
+      </div>
+ 
+      <!-- ── QUIZ ───────────────────────────────────── -->
+      <div class="quiz-screen" id="screen-quiz">
+        <div class="quiz-topbar">
+          <span class="q-count-lbl" id="q-count">Question 1 of 6</span>
+          <span class="score-badge" id="score-badge">0 pts</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+ 
+        <div class="quiz-meta">
+          <div class="timer-wrap">
+            <div class="timer-ring">
+              <svg width="40" height="40" viewBox="0 0 40 40">
+                <circle class="t-bg" cx="20" cy="20" r="16"/>
+                <circle class="t-fg" id="t-circle" cx="20" cy="20" r="16" stroke-dasharray="100.53" stroke-dashoffset="0"/>
+              </svg>
+              <div class="t-num" id="t-num">20</div>
+            </div>
+            <span class="timer-lbl">sec left</span>
+          </div>
+          <span class="streak-pill" id="streak-pill">🔥 ×1</span>
+        </div>
+ 
+        <div class="q-card">
+          <div class="q-chip" id="q-chip"></div>
+          <div class="q-text" id="q-text"></div>
+        </div>
+ 
+        <div class="opts" id="opts"></div>
+        <div class="fb"   id="fb"></div>
+        <button class="next-btn" id="next-btn" onclick="nextQ()">Next Question →</button>
+      </div>
+ 
+      <!-- ── RESULTS ─────────────────────────────────── -->
+      <div class="results-screen" id="screen-results">
+        <div class="results-hero">
+          <span class="hero-emoji" id="hero-emoji">🎉</span>
+          <div class="hero-score"  id="hero-score">0</div>
+          <div class="hero-pts">points</div>
+          <div class="hero-title"  id="hero-title">Well done!</div>
+          <div class="hero-sub"    id="hero-sub">0 / 0 correct</div>
+        </div>
+ 
+        <div class="hs-banner">
+          <span class="hs-lbl">🏆 Best score for this category</span>
+          <span class="hs-val" id="hs-now">—</span>
+        </div>
+ 
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-v" id="st-c">0</div><div class="stat-l">Correct</div></div>
+          <div class="stat-box"><div class="stat-v" id="st-w">0</div><div class="stat-l">Wrong</div></div>
+          <div class="stat-box"><div class="stat-v" id="st-s">0</div><div class="stat-l">Skipped</div></div>
+          <div class="stat-box"><div class="stat-v" id="st-k">0</div><div class="stat-l">Streak</div></div>
+        </div>
+ 
+        <div class="rev-header">📋 Question Review</div>
+        <div id="rev-list"></div>
+ 
+        <div class="res-actions">
+          <button class="btn-retry" onclick="retryQuiz()">🔁 Play Again</button>
+          <button class="btn-home"  onclick="goHome()">🏠 Home</button>
+        </div>
+      </div>
+ 
+    </div>
+  </main>
+</div>
+ 
+<footer>© 2025 Zad Alfayedi</footer>
+ 
+<script>
+const BANK = {
+  "🌍 Geography": [
+    {q:"What is the capital of Australia?",opts:["Sydney","Melbourne","Canberra","Brisbane"],ans:2,exp:"Canberra has been Australia's capital since 1927."},
+    {q:"Which is the longest river in the world?",opts:["Amazon","Nile","Yangtze","Mississippi"],ans:1,exp:"The Nile stretches ~6,650 km through northeastern Africa."},
+    {q:"Which country has the most natural lakes?",opts:["Russia","USA","Canada","Brazil"],ans:2,exp:"Canada holds over 60% of the world's lakes!"},
+    {q:"What is the smallest country in the world?",opts:["Monaco","Nauru","Vatican City","San Marino"],ans:2,exp:"Vatican City covers just 0.44 km²."},
+    {q:"Which is the largest ocean?",opts:["Atlantic","Indian","Arctic","Pacific"],ans:3,exp:"The Pacific covers more than 30% of Earth's surface."},
+    {q:"Which is the world's largest desert?",opts:["Sahara","Arabian","Gobi","Antarctic"],ans:3,exp:"Antarctica is Earth's largest cold desert."},
+    {q:"Mount Everest belongs to which mountain range?",opts:["Andes","Alps","Rockies","Himalayas"],ans:3,exp:"Everest sits on the Nepal–Tibet border in the Himalayas."},
+    {q:"Which country has the most time zones?",opts:["Russia","USA","China","France"],ans:3,exp:"France has 12 time zones including overseas territories."},
+    {q:"What is the capital of Canada?",opts:["Toronto","Vancouver","Ottawa","Montreal"],ans:2,exp:"Ottawa has been Canada's capital since 1857."},
+    {q:"Which African country is the most populous?",opts:["Ethiopia","Egypt","DRC","Nigeria"],ans:3,exp:"Nigeria has over 220 million people."},
+  ],
+  "🔬 Science": [
+    {q:"What is the chemical symbol for Gold?",opts:["Go","Gd","Au","Ag"],ans:2,exp:"'Au' comes from the Latin 'Aurum'."},
+    {q:"How many bones are in the adult human body?",opts:["196","206","216","226"],ans:1,exp:"Adults have 206 bones; babies are born with ~270."},
+    {q:"What planet is called the Red Planet?",opts:["Venus","Jupiter","Saturn","Mars"],ans:3,exp:"Mars appears red due to iron oxide on its surface."},
+    {q:"What is the powerhouse of the cell?",opts:["Nucleus","Ribosome","Mitochondria","Vacuole"],ans:2,exp:"Mitochondria produce ATP, the cell's energy currency."},
+    {q:"What is the approximate speed of light?",opts:["300,000 km/s","150,000 km/s","450,000 km/s","100,000 km/s"],ans:0,exp:"Light travels at ~299,792 km/s in a vacuum."},
+    {q:"Which gas do plants absorb during photosynthesis?",opts:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],ans:2,exp:"Plants take in CO₂ and release O₂."},
+    {q:"What is the atomic number of Carbon?",opts:["4","6","8","12"],ans:1,exp:"Carbon has 6 protons — atomic number 6."},
+    {q:"Which planet currently has the most moons?",opts:["Jupiter","Saturn","Uranus","Neptune"],ans:1,exp:"Saturn leads with over 140 confirmed moons as of 2024."},
+    {q:"DNA stands for?",opts:["Deoxyribonucleic Acid","Diribose Nucleic Acid","Double Nucleic Acid","Dioxyribose Acid"],ans:0,exp:"DNA carries the genetic blueprint for all living things."},
+    {q:"What is the hardest natural substance?",opts:["Iron","Quartz","Diamond","Titanium"],ans:2,exp:"Diamond scores 10 on the Mohs hardness scale."},
+  ],
+  "🎬 Movies": [
+    {q:"Who directed 'Inception' (2010)?",opts:["Ridley Scott","Steven Spielberg","Christopher Nolan","James Cameron"],ans:2,exp:"Christopher Nolan wrote and directed Inception."},
+    {q:"Who played Iron Man in the MCU?",opts:["Chris Evans","Chris Hemsworth","Robert Downey Jr.","Mark Ruffalo"],ans:2,exp:"Robert Downey Jr. played Tony Stark from 2008–2019."},
+    {q:"In which year was the original 'Star Wars' released?",opts:["1975","1977","1979","1981"],ans:1,exp:"Star Wars: A New Hope premiered May 25, 1977."},
+    {q:"Which movie features the line 'I'll be back'?",opts:["RoboCop","Total Recall","The Terminator","Predator"],ans:2,exp:"Schwarzenegger said this iconic line in The Terminator (1984)."},
+    {q:"Who voiced Woody in 'Toy Story'?",opts:["Tim Allen","Tom Hanks","John Goodman","Billy Crystal"],ans:1,exp:"Tom Hanks has voiced Woody in all Toy Story films."},
+    {q:"What is the highest-grossing film of all time?",opts:["Avengers: Endgame","Titanic","Avatar","Star Wars: TFA"],ans:2,exp:"Avatar (re-released 2022) holds the all-time box office record."},
+    {q:"In 'The Dark Knight', who plays the Joker?",opts:["Jared Leto","Jack Nicholson","Joaquin Phoenix","Heath Ledger"],ans:3,exp:"Heath Ledger won a posthumous Oscar for this role."},
+    {q:"Which film features 'My Heart Will Go On'?",opts:["Ghost","The Bodyguard","Titanic","Dirty Dancing"],ans:2,exp:"Celine Dion's song is synonymous with the 1997 film."},
+    {q:"Which studio made 'Spirited Away'?",opts:["Pixar","DreamWorks","Studio Ghibli","Toei Animation"],ans:2,exp:"Miyazaki directed it for Studio Ghibli in 2001."},
+    {q:"Who directed 'Jurassic Park'?",opts:["James Cameron","George Lucas","Steven Spielberg","Tim Burton"],ans:2,exp:"Steven Spielberg directed Jurassic Park in 1993."},
+  ],
+  "💻 Technology": [
+    {q:"What does HTML stand for?",opts:["Hyper Transfer Markup Language","HyperText Markup Language","High Text Making Language","HyperText Making Links"],ans:1,exp:"HTML structures the content of web pages."},
+    {q:"Who co-founded Apple with Steve Jobs?",opts:["Bill Gates","Steve Wozniak","Paul Allen","Larry Ellison"],ans:1,exp:"Steve Wozniak and Jobs co-founded Apple in 1976."},
+    {q:"What does CPU stand for?",opts:["Central Processing Unit","Computer Power Unit","Control Processing Unit","Core Processor Unit"],ans:0,exp:"The CPU is the primary chip that executes instructions."},
+    {q:"What is the binary representation of 10?",opts:["0101","1010","1100","0110"],ans:1,exp:"10 in binary is 1010 (8+2=10)."},
+    {q:"What does RAM stand for?",opts:["Random Access Memory","Read Accessible Memory","Rapid Active Memory","Read All Memory"],ans:0,exp:"RAM stores data currently in use by the CPU."},
+    {q:"What does URL stand for?",opts:["Universal Resource Locator","Uniform Resource Locator","Unified Resource Link","Universal Request Link"],ans:1,exp:"A URL is the address used to access internet resources."},
+    {q:"Which protocol secures HTTP connections?",opts:["FTP","SSH","TLS/SSL","SMTP"],ans:2,exp:"HTTPS uses TLS to encrypt data between client and server."},
+    {q:"What does API stand for?",opts:["Application Programming Interface","App Protocol Integration","Advanced Program Interface","Application Protocol Input"],ans:0,exp:"APIs let different software systems communicate."},
+    {q:"Which data structure uses LIFO?",opts:["Queue","Array","Stack","Linked List"],ans:2,exp:"A stack is Last In, First Out — like a pile of plates."},
+    {q:"Who created the Linux kernel?",opts:["Bill Gates","Dennis Ritchie","Linus Torvalds","Ken Thompson"],ans:2,exp:"Linus Torvalds released the Linux kernel in 1991."},
+  ],
+  "⚽ Sports": [
+    {q:"How many players on a standard soccer team?",opts:["9","10","11","12"],ans:2,exp:"Each team fields 11 players including the goalkeeper."},
+    {q:"In which country did the Olympics originate?",opts:["Italy","Egypt","Greece","Turkey"],ans:2,exp:"The ancient Olympics began in Olympia, Greece, ~776 BC."},
+    {q:"Which country has won the most FIFA World Cups?",opts:["Germany","Argentina","Italy","Brazil"],ans:3,exp:"Brazil has won 5 World Cups (1958, 62, 70, 94, 2002)."},
+    {q:"How many holes are on a standard golf course?",opts:["9","12","18","21"],ans:2,exp:"A regulation golf course has 18 holes."},
+    {q:"Which sport is played at Wimbledon?",opts:["Badminton","Squash","Tennis","Cricket"],ans:2,exp:"Wimbledon is the world's oldest Grand Slam, held since 1877."},
+    {q:"What is the official length of a marathon?",opts:["40 km","42.195 km","45 km","38 km"],ans:1,exp:"The marathon distance is 42.195 km (26.2 miles)."},
+    {q:"In basketball, how many points is a free throw?",opts:["1","2","3","0.5"],ans:0,exp:"Each successful free throw counts as 1 point."},
+    {q:"What is the diameter of a basketball hoop (inches)?",opts:["16","18","20","22"],ans:1,exp:"The rim is 18 inches in diameter."},
+    {q:"Which country invented cricket?",opts:["Australia","India","Pakistan","England"],ans:3,exp:"Cricket originated in England in the 16th century."},
+    {q:"How many players are on a volleyball team?",opts:["5","6","7","8"],ans:1,exp:"A volleyball team has 6 players on court at a time."},
+  ],
+};
+ 
+const DIFF = { easy:{time:20,qs:6}, medium:{time:13,qs:8}, hard:{time:8,qs:10} };
+const CIRC  = 100.53; // 2π×16
+const LTRS  = ['A','B','C','D'];
+ 
+let selCat=null, selDiff='easy';
+let questions=[], curQ=0, score=0, streak=0, bestStreak=0, answers=[];
+let timerInt=null, timeLeft=0;
+ 
+const shuffle = a => [...a].sort(()=>Math.random()-.5);
+const qs = id => document.getElementById(id);
+const decode = h => { const t=document.createElement('textarea'); t.innerHTML=h; return t.value; };
+ 
+/* ── HIGH SCORES ── */
+const getHS = ()  => JSON.parse(localStorage.getItem('fq-hs')||'{}');
+const setHS = (c,v) => { const h=getHS(); h[c]=v; localStorage.setItem('fq-hs',JSON.stringify(h)); };
+ 
+function renderSidebarHS() {
+  const h=getHS(), keys=Object.keys(h);
+  const panel=qs('hs-sidebar');
+  if(!keys.length){ panel.style.display='none'; return; }
+  panel.style.display='block';
+  qs('hs-list').innerHTML = keys.map(k=>`
+    <div class="hs-entry">
+      <span>${k.split(' ').slice(1).join(' ')}</span>
+      <span class="hs-entry-score">${h[k]} pts</span>
+    </div>`).join('');
+}
+ 
+/* ── BUILD HOME ── */
+function buildHome(){
+  const grid=qs('cat-grid'); grid.innerHTML='';
+  Object.keys(BANK).forEach(cat=>{
+    const d=document.createElement('div');
+    d.className='cat-card';
+    d.innerHTML=`<span class="cat-emoji">${cat.split(' ')[0]}</span>
+      <div class="cat-name">${cat.split(' ').slice(1).join(' ')}</div>
+      <div class="cat-count">${BANK[cat].length} questions</div>`;
+    d.onclick=()=>pickCat(cat,d);
+    grid.appendChild(d);
+  });
+  renderSidebarHS();
+}
+ 
+function pickCat(cat,el){
+  selCat=cat;
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  qs('start-btn').disabled=false;
+  qs('start-btn').textContent='Start "'+cat.split(' ').slice(1).join(' ')+'" →';
+}
+ 
+function setDiff(d,btn){
+  selDiff=d;
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+ 
+/* ── SCREENS ── */
+function showScreen(id){
+  ['home','quiz','results'].forEach(s=>{
+    const el=qs('screen-'+s);
+    el.classList.remove('on'); el.style.display='none';
+  });
+  const t=qs('screen-'+id);
+  t.style.display='block';
+  setTimeout(()=>t.classList.add('on'),10);
+}
+ 
+/* ── START ── */
+function startQuiz(){
+  if(!selCat) return;
+  questions=shuffle(BANK[selCat]).slice(0,DIFF[selDiff].qs);
+  curQ=0; score=0; streak=0; bestStreak=0; answers=[];
+  showScreen('quiz');
+  loadQ();
+}
+ 
+function loadQ(){
+  const q=questions[curQ], tot=questions.length, tl=DIFF[selDiff].time;
+  qs('q-count').textContent='Question '+(curQ+1)+' of '+tot;
+  qs('score-badge').textContent=score+' pts';
+  qs('prog-fill').style.width=((curQ/tot)*100)+'%';
+  qs('q-chip').textContent=selCat;
+  qs('q-text').innerHTML=decode(q.q);
+  qs('fb').className='fb';
+  qs('fb').textContent='';
+  qs('next-btn').className='next-btn';
+ 
+  // Streak pill
+  const sp=qs('streak-pill');
+  if(streak>=2){ sp.style.display='inline'; sp.textContent='🔥 ×'+streak; }
+  else{ sp.style.display='none'; }
+ 
+  // Options
+  const shuffled=shuffle(q.opts.map((o,i)=>({text:o,orig:i})));
+  const grid=qs('opts'); grid.innerHTML='';
+  shuffled.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt';
+    btn.innerHTML=`<span class="opt-ltr">${LTRS[i]}</span>${decode(opt.text)}`;
+    btn.dataset.orig=opt.orig;
+    btn.onclick=()=>answer(btn,q,tl);
+    grid.appendChild(btn);
+  });
+ 
+  startTimer(tl,q);
+}
+ 
+/* ── TIMER ── */
+function startTimer(seconds,q){
+  clearInterval(timerInt);
+  timeLeft=seconds;
+  const circ=qs('t-circle'), numEl=qs('t-num');
+  numEl.textContent=timeLeft;
+  circ.style.strokeDashoffset='0';
+  circ.style.stroke='#627999';
+  timerInt=setInterval(()=>{
+    timeLeft--;
+    numEl.textContent=timeLeft;
+    circ.style.strokeDashoffset=(CIRC*(1-timeLeft/seconds))+'';
+    if(timeLeft<=3)      circ.style.stroke='#dc2626';
+    else if(timeLeft<=6) circ.style.stroke='#f59e0b';
+    if(timeLeft<=0){ clearInterval(timerInt); timeUp(q); }
+  },1000);
+}
+ 
+function timeUp(q){
+  disableOpts();
+  document.querySelectorAll('.opt').forEach(b=>{ if(+b.dataset.orig===q.ans) b.classList.add('correct'); });
+  const fb=qs('fb');
+  fb.className='fb skip';
+  fb.innerHTML='⏰ <strong>Time\'s up!</strong> The answer was: '+decode(q.opts[q.ans]);
+  qs('next-btn').className='next-btn show';
+  streak=0;
+  answers.push({q:q.q,your:'(skipped)',correct:q.opts[q.ans],ok:false,skipped:true,exp:q.exp});
+}
+ 
+/* ── ANSWER ── */
+function answer(btn,q,tl){
+  clearInterval(timerInt);
+  disableOpts();
+  const chosen=+btn.dataset.orig, ok=(chosen===q.ans);
+  const fb=qs('fb');
+ 
+  if(ok){
+    btn.classList.add('correct');
+    const bonus=(selDiff==='hard'?10:selDiff==='medium'?5:0)+(streak>=2?5:0);
+    score+=10+bonus;
+    streak++; if(streak>bestStreak)bestStreak=streak;
+    fb.className='fb ok';
+    fb.innerHTML='✅ <strong>Correct!</strong> '+(q.exp||'');
+  } else {
+    btn.classList.add('wrong');
+    streak=0;
+    document.querySelectorAll('.opt').forEach(b=>{ if(+b.dataset.orig===q.ans) b.classList.add('correct'); });
+    fb.className='fb no';
+    fb.innerHTML='❌ <strong>Wrong.</strong> Correct answer: <strong>'+decode(q.opts[q.ans])+'</strong>'+( q.exp ? ' — '+q.exp : '');
+  }
+ 
+  qs('score-badge').textContent=score+' pts';
+  qs('next-btn').className='next-btn show';
+  answers.push({q:q.q,your:q.opts[chosen],correct:q.opts[q.ans],ok,skipped:false,exp:q.exp});
+}
+ 
+function disableOpts(){ document.querySelectorAll('.opt').forEach(b=>b.disabled=true); }
+ 
+/* ── NEXT ── */
+function nextQ(){
+  curQ++;
+  if(curQ>=questions.length) showResults();
+  else loadQ();
+}
+ 
+/* ── RESULTS ── */
+function showResults(){
+  clearInterval(timerInt);
+  showScreen('results');
+  const tot=questions.length;
+  const c=answers.filter(a=>a.ok).length;
+  const s=answers.filter(a=>a.skipped).length;
+  const w=answers.filter(a=>!a.ok&&!a.skipped).length;
+  const pct=Math.round((c/tot)*100);
+ 
+  const emojis=['😅','😐','🙂','😊','🎉','🌟'];
+  const msgs  =['Keep practicing!','Not bad at all!','Good effort!','Great work!','Excellent!','Perfect score!'];
+  const idx=Math.min(Math.floor(pct/20),5);
+ 
+  qs('hero-emoji').textContent=emojis[idx];
+  qs('hero-score').textContent=score;
+  qs('hero-title').textContent=msgs[idx];
+  qs('hero-sub').textContent=c+' correct out of '+tot+' ('+pct+'%)';
+ 
+  const h=getHS(), prev=h[selCat]||0;
+  if(score>prev) setHS(selCat,score);
+  const best=Math.max(score,prev);
+  qs('hs-now').textContent=best+' pts'+(score>prev?' — 🆕 New Record!':'');
+ 
+  qs('st-c').textContent=c;
+  qs('st-w').textContent=w;
+  qs('st-s').textContent=s;
+  qs('st-k').textContent=bestStreak;
+ 
+  qs('rev-list').innerHTML=answers.map((a,i)=>`
+    <div class="rev-item">
+      <div class="rev-item-top">
+        <div class="rev-q">${i+1}. ${decode(a.q)}</div>
+        <span class="rev-tag ${a.ok?'ok':'no'}">${a.ok?'✅ Correct':a.skipped?'⏰ Skipped':'❌ Wrong'}</span>
+      </div>
+      ${!a.ok?`<div class="rev-detail">
+        ${a.skipped?'':`Your answer: ${decode(a.your)}<br>`}
+        Correct: <strong>${decode(a.correct)}</strong>
+      </div>`:''}
+      ${a.exp?`<div class="rev-exp">💡 ${a.exp}</div>`:''}
+    </div>`).join('');
+ 
+  renderSidebarHS();
+}
+ 
+function retryQuiz(){ startQuiz(); }
+function goHome(){ clearInterval(timerInt); showScreen('home'); buildHome(); }
+ 
+/* INIT */
+buildHome();
+showScreen('home');
+</script>
+</body>
+</html>

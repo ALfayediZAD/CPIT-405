@@ -1,89 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Labs | Zad Alfayedi</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labs | Zad Alfayedi</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="top-header">
-    <div class="header-content">
-        <h1>Zad Alfayedi <span>IT Student</span></h1>
-        <nav>
-            <a href="index.html">CV</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="contact.html">Contact</a>
-            <a href="MyWorks.html">My Works</a>
-        </nav>
-    </div>
+  <div class="header-content">
+    <h1>Zad Alfayedi <span>IT Student</span></h1>
+    <nav>
+      <a href="index.html">CV</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="contact.html">Contact</a>
+      <a href="Labs.html" class="active">Labs</a>
+      <a href="MyWorks.html">My Works</a>
+    </nav>
+  </div>
 </header>
 
 <div class="container">
 
-<main class="content">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <img src="IMAGES/ME!.png" alt="Zad Alfayedi">
 
-<h2>My Web Development Labs</h2>
+    <div class="sidebar-section-title">About Labs</div>
+    <div class="contact-box">
+      <p>These are my weekly web development lab exercises from CPIT-405, covering HTML, CSS, and JavaScript.</p>
+    </div>
 
-<div class="labs">
+    <div class="sidebar-section-title">Contact</div>
+    <div class="contact-row">
+      <div class="contact-row-icon">✉️</div>
+      <div class="contact-row-text">
+        <span>Email</span>
+        <a href="mailto:zalfayedi@stu.kau.edu.sa">zalfayedi@stu.kau.edu.sa</a>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-row-icon">📞</div>
+      <div class="contact-row-text">
+        <span>Phone</span>
+        <a href="tel:+966556412061">+966 55 641 2061</a>
+      </div>
+    </div>
 
-<div class="card">
-<h3>Lab 2</h3>
-<p>Introduction & HTML Structure</p>
-<a href="lab2.html">View Lab</a>
+    <div class="sidebar-section-title">Social</div>
+    <div class="social">
+      <a href="https://x.com" target="_blank"><img src="IMAGES/x.png" alt="X"></a>
+      <a href="https://linkedin.com" target="_blank"><img src="IMAGES/linkedin.png" alt="LinkedIn"></a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="content">
+    <h2>My Web Development Labs</h2>
+    <p style="color:#6b7280; font-size:14px; margin-bottom:24px; margin-top:6px;">
+      Lab exercises completed throughout the CPIT-405 course.
+    </p>
+
+    <div class="labs">
+
+      <div class="card">
+        <div class="lab-num">Lab 2</div>
+        <h3>HTML Structure</h3>
+        <p>Introduction to web pages and basic HTML document structure.</p>
+        <a href="lab2.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 3</div>
+        <h3>CSS Styling</h3>
+        <p>CSS fundamentals — selectors, properties, and page layout.</p>
+        <a href="lab3.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 4</div>
+        <h3>HTML Forms</h3>
+        <p>Building an auto parts order form with input validation.</p>
+        <a href="lab4.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 5</div>
+        <h3>DOM & JS Events</h3>
+        <p>Manipulating the DOM and handling JavaScript events.</p>
+        <a href="lab5.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 6</div>
+        <h3>JavaScript I</h3>
+        <p>Core JavaScript — variables, functions, and control flow.</p>
+        <a href="lab6.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 7</div>
+        <h3>Asynchronous JavaScript (Ajax programming)</h3>
+        <p>web page that consumes the unsplash API.</p>
+        <a href="lab7.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 8</div>
+        <h3>React.js</h3>
+        <p>React application that enables users to shorten long URLs into shareable links.</p>
+        <a href="https://codesandbox.io/p/sandbox/throbbing-dew-ll8tmd">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 9</div>
+        <h3>Working with APIs in React.js</h3>
+        <p>React application that allows users to search for recipes </p>
+        <a href="https://codesandbox.io/p/sandbox/7k4rvf">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 10</div>
+        <h3>PHP and MariaDB</h3>
+        <p>Fetch API, JSON handling, and dynamic page updates.</p>
+        <a href="lab10.html">View Lab →</a>
+      </div>
+
+      <div class="card">
+        <div class="lab-num">Lab 11</div>
+        <h3>Ajax (DOM, XML, JSON, PHP)</h3>
+        <p>Local storage, session storage, and browser data persistence.</p>
+        <a href="lab11.html">View Lab →</a>
+      </div>
+
+    </div>
+  </main>
 </div>
 
-<div class="card">
-<h3>Lab 3</h3>
-<p>CSS Structure & Properties</p>
-<a href="lab3.html">View Lab</a>
-</div>
-
-<div class="card">
-<h3>Lab 4</h3>
-<p>Auto Parts Order Form</p>
-<a href="lab4.html">View Lab</a>
-</div>
-
-
-<div class="card">
-<h3>Lab 5 </h3>
-<p>DOM API and JS Events</p>
-<a href="lab5.html">View Lab</a>
-</div>
-
-<div class="card">
-<h3>Lab 6 </h3>
-<p>JavaScript</p>
-<a href="lab6.html">View Lab</a>
-</div>
-
-<div class="card">
-<h3>Lab 7 </h3>
-<p>JavaScript</p>
-<a href="lab7.html">View Lab</a>
-</div>
-
-<div class="card">
-<h3>Lab 8 </h3>
-<p>JavaScript</p>
-<a href="">View Lab</a>
-</div>
-
-<div class="card">
-<h3>Lab 9</h3>
-<p>JavaScript</p>
-<a href="">View Lab</a>
-</div>
-
-</div>
-
-</main>
-</div>
-
-<footer>
-© 2025 Zad Alfayedi
-</footer>
+<footer>© 2025 Zad Alfayedi</footer>
 
 </body>
 </html>

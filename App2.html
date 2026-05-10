@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trivia Challenge | Zad Alfayedi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+<header class="top-header">
+  <div class="header-content">
+    <h1>Zad Alfayedi <span>IT Student</span></h1>
+        <nav>
+      <a href="index.html">CV</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="contact.html">Contact</a>
+      <a href="Labs.html">Labs</a>
+      <a href="MyWorks.html" class="active">My Works</a>
+    </nav>
+  </div>
+</header>
+ 
+<div class="container">
+ 
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <img src="IMAGES/quiz.jpg" alt="Profile">
+    <h3>App Info</h3>
+    <div class="contact-box">
+      <p><strong>API:</strong> <a href="https://opentdb.com" target="_blank">Open Trivia DB</a></p><br>
+      <p>Fetches 10 live questions. Filter by category, difficulty &amp; type, then answer each card!</p>
+    </div>
+    <div id="sess-sidebar" class="sess-panel" style="display:none">
+      <h3>Session Stats</h3>
+      <div id="sess-rows"></div>
+    </div>
+    <div style="margin-top:20px">
+      <a href="MyWorks.html" class="sidebar-back-btn">← Back to My Works</a>
+    </div>
+  </aside>
+ 
+  <!-- MAIN -->
+  <main class="content">
+    <div class="app-wrap">
+      <div class="app-heading">🎯 Trivia Challenge</div>
+      <div class="app-heading-sub">Live questions from the Open Trivia Database — filter, fetch, and test yourself!</div>
+ 
+      <!-- Controls card -->
+      <div class="controls-card">
+        <div class="controls-row">
+          <div class="ctrl-group">
+            <div class="section-lbl">Category</div>
+            <select id="cat-sel">
+              <option value="">Any Category</option>
+              <option value="9">General Knowledge</option>
+              <option value="10">Books</option>
+              <option value="11">Film</option>
+              <option value="12">Music</option>
+              <option value="14">Television</option>
+              <option value="15">Video Games</option>
+              <option value="17">Science &amp; Nature</option>
+              <option value="18">Computers</option>
+              <option value="19">Mathematics</option>
+              <option value="20">Mythology</option>
+              <option value="21">Sports</option>
+              <option value="22">Geography</option>
+              <option value="23">History</option>
+              <option value="27">Animals</option>
+            </select>
+          </div>
+          <div class="ctrl-group">
+            <div class="section-lbl">Difficulty</div>
+            <select id="diff-sel">
+              <option value="">Any Difficulty</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="ctrl-group">
+            <div class="section-lbl">Type</div>
+            <select id="type-sel">
+              <option value="">Any Type</option>
+              <option value="multiple">Multiple Choice</option>
+              <option value="boolean">True / False</option>
+            </select>
+          </div>
+        </div>
+        <button class="fetch-btn" id="fetch-btn" onclick="fetchTrivia()">🎲 Fetch 10 Questions</button>
+      </div>
+ 
+      <!-- Score bar -->
+      <div class="score-bar" id="score-bar">
+        <div class="score-cell"><div class="score-cell-v" id="sc-c">0</div><div class="score-cell-l">Correct</div></div>
+        <div class="score-cell"><div class="score-cell-v" id="sc-w">0</div><div class="score-cell-l">Wrong</div></div>
+        <div class="score-cell"><div class="score-cell-v" id="sc-r">0</div><div class="score-cell-l">Left</div></div>
+        <div class="score-cell"><div class="score-cell-v" id="sc-p">—</div><div class="score-cell-l">Accuracy</div></div>
+      </div>
+ 
+      <div class="status-msg" id="status-msg"></div>
+ 
+      <!-- Finish banner (shown after all answered) -->
+      <div class="finish-banner" id="finish-banner">
+        <span class="finish-emoji" id="fin-emoji">🎉</span>
+        <div class="finish-score" id="fin-score">0</div>
+        <div class="finish-lbl">correct out of 10</div>
+        <div class="finish-msg"  id="fin-msg">Well done!</div>
+      </div>
+ 
+      <!-- Questions go here -->
+      <div id="main-content"></div>
+    </div>
+  </main>
+</div>
+ 
+<footer>© 2025 Zad Alfayedi</footer>
+ 
+<script>
+let questions=[], answered=0, correct=0, wrong=0;
+let sessCorrect=0, sessWrong=0, sessRounds=0;
+ 
+const qs  = id => document.getElementById(id);
+const decode = h => { const t=document.createElement('textarea'); t.innerHTML=h; return t.value; };
+const shuffle = a => [...a].sort(()=>Math.random()-.5);
+const esc = s => s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+const escA = s => s.replace(/"/g,'&quot;');
+ 
+async function fetchTrivia(){
+  const cat  = qs('cat-sel').value;
+  const diff = qs('diff-sel').value;
+  const type = qs('type-sel').value;
+  const btn  = qs('fetch-btn');
+ 
+  let url='https://opentdb.com/api.php?amount=10';
+  if(cat)  url+='&category='+cat;
+  if(diff) url+='&difficulty='+diff;
+  if(type) url+='&type='+type;
+ 
+  btn.disabled=true;
+  qs('status-msg').textContent='';
+  qs('score-bar').style.display='none';
+  qs('finish-banner').className='finish-banner';
+  qs('main-content').innerHTML=`
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      Fetching your trivia questions…
+    </div>`;
+ 
+  try {
+    const res=await fetch(url);
+    if(!res.ok) throw new Error('Network error (HTTP '+res.status+')');
+    const data=await res.json();
+ 
+    if(data.response_code===1) throw new Error('Not enough questions for these filters. Try broadening your selection.');
+    if(data.response_code===5) throw new Error('Rate limit reached. Please wait a moment, then try again.');
+    if(!data.results?.length)  throw new Error('No questions returned. Please adjust your filters.');
+ 
+    questions=data.results;
+    answered=0; correct=0; wrong=0;
+    sessRounds++;
+    renderQuestions();
+    qs('score-bar').style.display='grid';
+    updateScoreBar();
+    qs('status-msg').textContent='Loaded '+questions.length+' questions — click an answer on each card!';
+  } catch(err){
+    qs('main-content').innerHTML=`<div class="error-wrap">⚠️ ${err.message}</div>`;
+    qs('status-msg').textContent='';
+  } finally {
+    btn.disabled=false;
+  }
+}
+ 
+function renderQuestions(){
+  const list=document.createElement('div');
+  list.className='trivia-list';
+ 
+  questions.forEach((q,i)=>{
+    const card=document.createElement('div');
+    card.className='t-card';
+    card.id='card-'+i;
+ 
+    const cat    = decode(q.category);
+    const diff   = q.difficulty;
+    const type   = q.type;
+    const qText  = decode(q.question);
+    const corr   = decode(q.correct_answer);
+ 
+    let bodyHtml='';
+ 
+    if(type==='boolean'){
+      bodyHtml=`<div class="tf-row">
+        <button class="tf-btn" id="tf-T-${i}" onclick="answerTF(${i},'True','${esc(corr)}')">✅ True</button>
+        <button class="tf-btn" id="tf-F-${i}" onclick="answerTF(${i},'False','${esc(corr)}')">❌ False</button>
+      </div>`;
+    } else {
+      const wrongs=q.incorrect_answers.map(a=>decode(a));
+      const all=shuffle([corr,...wrongs]);
+      bodyHtml='<div class="mc-opts" id="opts-'+i+'">';
+      all.forEach(opt=>{
+        bodyHtml+=`<button class="mc-opt" onclick="answerMC(${i},this,'${esc(opt)}','${esc(corr)}')" data-val="${escA(opt)}">
+          <span class="opt-dot"></span>${opt}
+        </button>`;
+      });
+      bodyHtml+='</div>';
+    }
+ 
+    card.innerHTML=`
+      <div class="t-card-head">
+        <div class="q-number">${i+1}</div>
+        <span class="badge badge-cat">${cat}</span>
+        <span class="badge badge-${diff}">${diff.charAt(0).toUpperCase()+diff.slice(1)}</span>
+        <span class="badge badge-type">${type==='boolean'?'True / False':'Multiple Choice'}</span>
+      </div>
+      <div class="t-card-body"><div class="t-question">${qText}</div></div>
+      ${bodyHtml}
+      <div class="t-reveal" id="reveal-${i}"></div>`;
+ 
+    list.appendChild(card);
+  });
+ 
+  qs('main-content').innerHTML='';
+  qs('main-content').appendChild(list);
+}
+ 
+function answerMC(idx, btn, chosen, corr){
+  document.querySelectorAll('#opts-'+idx+' .mc-opt').forEach(b=>{
+    b.disabled=true;
+    if(b.dataset.val===corr) b.classList.add('correct');
+  });
+  const ok=(chosen===corr);
+  if(!ok) btn.classList.add('wrong');
+  markCard(idx, ok, corr);
+}
+ 
+function answerTF(idx, chosen, corr){
+  const tBtn=qs('tf-T-'+idx), fBtn=qs('tf-F-'+idx);
+  tBtn.disabled=true; fBtn.disabled=true;
+  const ok=(chosen===corr);
+  if(corr==='True')  tBtn.classList.add('correct'); else fBtn.classList.add('correct');
+  if(!ok){ (chosen==='True'?tBtn:fBtn).classList.add('wrong'); }
+  markCard(idx, ok, corr);
+}
+ 
+function markCard(idx, ok, corr){
+  answered++;
+  if(ok){ correct++; sessCorrect++; }
+  else  { wrong++;   sessWrong++;   }
+ 
+  // Reveal strip
+  const rev=qs('reveal-'+idx);
+  rev.className='t-reveal show';
+  rev.innerHTML=ok
+    ? '<span class="reveal-ok">✅ Correct!</span>'
+    : '<span class="reveal-no">❌ Incorrect — correct answer: <strong>'+corr+'</strong></span>';
+ 
+  // Badge on card header
+  const head=qs('card-'+idx).querySelector('.t-card-head');
+  const oldBadge=head.querySelector('.badge-done,.badge-skip');
+  if(oldBadge) oldBadge.remove();
+  const b=document.createElement('span');
+  b.className='badge '+(ok?'badge-done':'badge-skip');
+  b.textContent=ok?'✓ Correct':'✗ Wrong';
+  head.appendChild(b);
+ 
+  updateScoreBar();
+ 
+  if(answered===questions.length) showFinish();
+  updateSidebar();
+}
+ 
+function updateScoreBar(){
+  const left=questions.length-answered;
+  const pct=answered>0?Math.round((correct/answered)*100)+'%':'—';
+  qs('sc-c').textContent=correct;
+  qs('sc-w').textContent=wrong;
+  qs('sc-r').textContent=left;
+  qs('sc-p').textContent=pct;
+}
+ 
+function showFinish(){
+  const pct=Math.round((correct/questions.length)*100);
+  const emojis=['😅','😐','🙂','😊','🎉'];
+  const msgs  =['Keep practicing!','Not bad!','Good job!','Great work!','Perfect round!'];
+  const idx=Math.min(Math.floor(pct/20),4);
+  qs('fin-emoji').textContent=emojis[idx];
+  qs('fin-score').textContent=correct;
+  qs('fin-msg').textContent=msgs[idx]+' ('+pct+'% accuracy)';
+  qs('finish-banner').className='finish-banner show';
+  qs('status-msg').textContent='Round complete! Fetch more questions to keep going.';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+ 
+function updateSidebar(){
+  const total=sessCorrect+sessWrong;
+  const pct=total>0?Math.round((sessCorrect/total)*100)+'%':'—';
+  qs('sess-sidebar').style.display='block';
+  qs('sess-rows').innerHTML=`
+    <div class="sess-row"><span>Rounds played</span><span class="sess-val">${sessRounds}</span></div>
+    <div class="sess-row"><span>Total correct</span><span class="sess-val">${sessCorrect}</span></div>
+    <div class="sess-row"><span>Total wrong</span><span class="sess-val">${sessWrong}</span></div>
+    <div class="sess-row"><span>Accuracy</span><span class="sess-val">${pct}</span></div>`;
+}
+</script>
+</body>
+</html>

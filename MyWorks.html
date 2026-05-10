@@ -10,15 +10,86 @@
     <header class="top-header">
     <div class="header-content">
         <h1>Zad Alfayedi <span>IT Student</span></h1>
-        <nav>
-            <a href="index.html">CV</a>
-            <a href="schedule.html">Schedule</a>
-            <a href="contact.html">Contact</a>
-            <a href="Labs.html">Labs</a>
-            
-        </nav>
+            <nav>
+      <a href="index.html">CV</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="contact.html">Contact</a>
+      <a href="Labs.html">Labs</a>
+      <a href="MyWorks.html" class="active">My Works</a>
+    </nav>
     </div>
 </header>
+<div class="container">
+  <aside class="sidebar">
+    <img src="IMAGES/ME!.png" alt="Zad Alfayedi">
+    <div class="sidebar-section-title">Contact</div>
+    <div class="contact-row">
+      <div class="contact-row-icon">✉️</div>
+      <div class="contact-row-text">
+        <span>Email</span>
+        <a href="mailto:zalfayedi@stu.kau.edu.sa">zalfayedi@stu.kau.edu.sa</a>
+      </div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-row-icon">📞</div>
+      <div class="contact-row-text">
+        <span>Phone</span>
+        <a href="tel:+966556412061">+966 55 641 2061</a>
+      </div>
+    </div>
+    <div class="sidebar-section-title">Social</div>
+    <div class="social">
+      <a href="https://x.com" target="_blank"><img src="IMAGES/x.png" alt="X"></a>
+      <a href="https://linkedin.com" target="_blank"><img src="IMAGES/linkedin.png" alt="LinkedIn"></a>
+    </div>
+  </aside>
 
+  <main class="content">
+    <section>
+      <h2>My Works</h2>
+      <p class="works-intro">JavaScript apps built for CPIT-405 — one without APIs, one powered by a live public API.</p>
+      <div class="works-grid">
+
+        <div class="work-card">
+          <div class="work-card-header">
+            <span class="work-card-badge">App 1 — No External API</span>
+            <span class="work-card-icon">🧠</span>
+            <h3>Fun Quiz</h3>
+          </div>
+          <div class="work-card-body">
+            <p class="work-card-desc">A self-contained quiz with 5 categories, 3 difficulty levels, a countdown timer, streak bonuses, and high scores saved in localStorage.</p>
+            <div class="work-card-tags">
+              <span class="work-tag">HTML</span>
+              <span class="work-tag">CSS</span>
+              <span class="work-tag">JavaScript</span>
+              <span class="work-tag">localStorage</span>
+            </div>
+            <a href="App1.html" class="work-card-link">🚀 Open App</a>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div class="work-card-header accent">
+            <span class="work-card-badge">App 2 — Public API</span>
+            <span class="work-card-icon">🎯</span>
+            <h3>Trivia Challenge</h3>
+          </div>
+          <div class="work-card-body">
+            <p class="work-card-desc">Live trivia questions fetched from the Open Trivia Database. Filter by category, difficulty and type — with instant feedback and a score tracker.</p>
+            <div class="work-card-tags">
+              <span class="work-tag">HTML</span>
+              <span class="work-tag">CSS</span>
+              <span class="work-tag">JavaScript</span>
+              <span class="work-tag">fetch()</span>
+              <span class="work-tag">Open Trivia DB</span>
+            </div>
+            <a href="App2.html" class="work-card-link">🚀 Open App</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
 </body>
 </html>

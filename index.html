@@ -3,137 +3,305 @@
 
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zad Alfayedi | Portfolio</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ===== Header ===== -->
+<!-- ═══ HEADER ═══ -->
 <header class="top-header">
-<div class="header-content">
-
-<h1>Zad Alfayedi <span>IT Student</span></h1>
-
-<nav>
-<a href="index.html">CV</a>
-<a href="schedule.html">Schedule</a>
-<a href="contact.html">Contact</a>
-<a href="Labs.html">Labs</a>
-<a href="MyWorks.html">My Works</a>
-</nav>
-
-</div>
+  <div class="header-content">
+    <h1>Zad Alfayedi <span>IT Student</span></h1>
+        <nav>
+      <a href="index.html" class="active">CV</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="contact.html">Contact</a>
+      <a href="Labs.html">Labs</a>
+      <a href="MyWorks.html">My Works</a>
+    </nav>
+  </div>
 </header>
 
 <div class="container">
 
-<!-- ===== Sidebar ===== -->
-<aside class="sidebar">
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
 
-<img src="IMAGES/1771981883904.jpg" alt="Profile">
+    <img src="IMAGES/ME!.png" alt="Zad Alfayedi">
 
-<h3>Sections</h3>
+    <!-- Availability -->
+    <div class="availability-badge">
+      <div class="avail-dot"></div>
+      <span class="avail-text">Open to Opportunities</span>
+    </div>
 
-<nav class="section-nav">
-<a href="#about">About Me</a>
-<a href="#education">Education</a>
-<a href="#skills">Skills</a>
-</nav>
+    <!-- Quick nav -->
+    <div class="sidebar-section-title">Navigate</div>
+    <nav class="section-nav">
+      <a href="#about">About Me</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#interests">Interests</a>
+    </nav>
 
-<h3>Contact</h3>
+    <!-- Contact -->
+    <div class="sidebar-section-title">Contact</div>
 
-<div class="contact-box">
+    <div class="contact-row">
+      <div class="contact-row-icon">✉️</div>
+      <div class="contact-row-text">
+        <span>Email</span>
+        <a href="mailto:zalfayedi@stu.kau.edu.sa">zalfayedi@stu.kau.edu.sa</a>
+      </div>
+    </div>
 
-<p>Email:</p>
-<a href="mailto:zalfayedi@stu.kau.edu.sa">
-zalfayedi@stu.kau.edu.sa
-</a>
+    <div class="contact-row">
+      <div class="contact-row-icon">📞</div>
+      <div class="contact-row-text">
+        <span>Phone</span>
+        <a href="tel:+966556412061">+966 55 641 2061</a>
+      </div>
+    </div>
 
-<p>Phone:</p>
-<a href="tel:+966556412061">
-+966556412061
-</a>
+    <div class="contact-row">
+      <div class="contact-row-icon">📍</div>
+      <div class="contact-row-text">
+        <span>Location</span>
+        <a>Jeddah, Saudi Arabia</a>
+      </div>
+    </div>
 
-</div>
+    <!-- Social -->
+    <div class="sidebar-section-title">Social</div>
+    <div class="social">
+      <a href="https://x.com" target="_blank">
+        <img src="IMAGES/x.png" alt="X / Twitter">
+      </a>
+      <a href="https://linkedin.com" target="_blank">
+        <img src="IMAGES/linkedin.png" alt="LinkedIn">
+      </a>
+    </div>
 
-<!-- ===== Social Media ===== -->
-<div class="social">
+  </aside>
 
-<a href="https://x.com" target="_blank">
-<img src="IMAGES/x.png" alt="X">
-</a>
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="content">
 
-<a href="https://linkedin.com" target="_blank">
-<img src="IMAGES/linkedin.png" alt="LinkedIn">
-</a>
+    <!-- ── Hero ── -->
+    <div class="cv-hero">
+      <img src="IMAGES/1771981883904.jpg" alt="Zad Alfayedi" class="hero-avatar">
+      <div class="hero-text">
+        <h2>Zad Alfayedi</h2>
+        <div class="hero-role">🎓 &nbsp;IT Student · King Abdulaziz University</div>
+        <div class="hero-chips">
+          <span class="hero-chip">Web Development</span>
+          <span class="hero-chip">UI / UX Design</span>
+          <span class="hero-chip">Python</span>
+          <span class="hero-chip">Java</span>
+          <span class="hero-chip">Jeddah, KSA</span>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <!-- ── About Me ── -->
+    <div class="cv-section" id="about">
+      <div class="section-heading">
+        <div class="heading-icon">👤</div>
+        About Me
+      </div>
+      <div class="about-card">
+        <p>
+          <span style="font-size: 3rem; font-weight: bold; float: left; margin-right: 8px; line-height: 1;">I</span> am an Information Technology student at King Abdulaziz University with a passion for
+          web technologies and software development. I enjoy building clean, user-friendly interfaces
+          and am always looking to deepen my understanding of both front-end design and back-end logic.
+          Through practical projects and coursework, I continuously sharpen my programming and design
+          skills — and I thrive when solving real problems through creative, well-structured code.
+        </p>
+      </div>
+    </div>
 
-</aside>
+    <!-- ── Education ── -->
+    <div class="cv-section" id="education">
+      <div class="section-heading">
+        <div class="heading-icon">🎓</div>
+        Education
+      </div>
+      <div class="timeline">
 
-<!-- ===== Main Content ===== -->
-<main class="content">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-title">Bachelor of Science — Information Technology</div>
+              <span class="timeline-badge">2022 – Present</span>
+            </div>
+            <div class="timeline-sub">King Abdulaziz University &nbsp;·&nbsp; Jeddah, Saudi Arabia</div>
+            <div class="timeline-desc">
+              Studying core topics including web development, databases, software engineering, networking,
+              and algorithms. Actively building portfolio projects to complement academic learning.
+             <BR>
+                 GPA: 4.88
+            </div>
+          </div>
+        </div>
 
-<section id="about">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-header">
+              <div class="timeline-title">High School Diploma</div>
+              <span class="timeline-badge">Graduated 2022</span>
+            </div>
+            <div class="timeline-sub">Jeddah, Saudi Arabia</div>
+            <div class="timeline-desc">
+              Completed secondary education with a focus on mathematics and sciences, building a strong
+              analytical foundation for university-level IT studies.
+            </div>
+          </div>
+        </div>
 
-<h2>About Me</h2>
+      </div>
+    </div>
 
-<p class="about-text">
+    <!-- ── Skills ── -->
+    <div class="cv-section" id="skills">
+      <div class="section-heading">
+        <div class="heading-icon">⚙️</div>
+        Skills
+      </div>
 
-I am an Information Technology student at King Abdulaziz University who enjoys learning about web technologies and software development. I am particularly interested in creating clean and user-friendly websites. I like exploring new technologies and improving my programming and design skills through practical projects.
+      <div class="skills-grid">
 
-</p>
+        <!-- Hard Skills -->
+        <div>
+          <div class="skill-group-title">Technical Skills</div>
 
-</section>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label">
+              <span class="skill-bar-name">🌐 HTML &amp; CSS</span>
+              <span class="skill-bar-pct">90%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="90"></div>
+            </div>
+          </div>
 
-<section id="education">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label">
+              <span class="skill-bar-name">✨ JavaScript</span>
+              <span class="skill-bar-pct">75%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="75"></div>
+            </div>
+          </div>
 
-<h2>Education</h2>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label">
+              <span class="skill-bar-name">🎨 UI / UX Design</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="80"></div>
+            </div>
+          </div>
 
-<ul>
-<li>
-Bachelor in Information Technology  
-King Abdulaziz University
-</li>
-</ul>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label">
+              <span class="skill-bar-name">🐍 Python</span>
+              <span class="skill-bar-pct">70%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="70"></div>
+            </div>
+          </div>
 
-</section>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label">
+              <span class="skill-bar-name">☕ Java</span>
+              <span class="skill-bar-pct">65%</span>
+            </div>
+            <div class="skill-bar-track">
+              <div class="skill-bar-fill" data-width="65"></div>
+            </div>
+          </div>
 
-<section id="skills">
+        </div>
 
-<h2>Skills</h2>
+        <!-- Soft Skills -->
+        <div>
+          <div class="skill-group-title">Soft Skills</div>
+          <div class="soft-tags">
+            <div class="soft-tag"><span class="tag-icon">🤝</span> Teamwork</div>
+            <div class="soft-tag"><span class="tag-icon">🧩</span> Problem Solving</div>
+            <div class="soft-tag"><span class="tag-icon">💬</span> Communication</div>
+            <div class="soft-tag"><span class="tag-icon">⏰</span> Time Management</div>
+            <div class="soft-tag"><span class="tag-icon">⚡</span> Quick Learner</div>
+            <div class="soft-tag"><span class="tag-icon">🔄</span> Adaptability</div>
+            <div class="soft-tag"><span class="tag-icon">💡</span> Creativity</div>
+            <div class="soft-tag"><span class="tag-icon">🎯</span> Attention to Detail</div>
+          </div>
+        </div>
 
-<div class="skills-container">
-<h3>Hard Skills</h3>
-<br>
-<div class="skill-box">UI / UX Design</div>
-<div class="skill-box">HTML</div>
-<div class="skill-box">CSS</div>
-<div class="skill-box">Python</div>
-<div class="skill-box">Java</div>
-<br>
-<h3>Soft Skills</h3>
-<br>
-<div class="skill-box">Teamwork</div>
-<div class="skill-box">Problem Solving</div>
-<div class="skill-box">Communication</div>
-<div class="skill-box">Time Management</div>
-<div class="skill-box">Quick Learner</div>
-<div class="skill-box">Adaptability</div>
-<div class="skill-box">Creativity</div>
+      </div>
+    </div>
 
-</div>
+    <!-- ── Interests ── -->
+    <div class="cv-section" id="interests">
+      <div class="section-heading">
+        <div class="heading-icon">🌟</div>
+        Interests
+      </div>
+      <div class="interests-strip">
+        <div class="interest-card">
+          <span class="interest-icon">🌐</span>
+          <div class="interest-name">Web Dev</div>
+        </div>
+        <div class="interest-card">
+          <span class="interest-icon">🎨</span>
+          <div class="interest-name">UI Design</div>
+        </div>
+        <div class="interest-card">
+          <span class="interest-icon">🤖</span>
+          <div class="interest-name">AI & Tech</div>
+        </div>
+        <div class="interest-card">
+          <span class="interest-icon">📱</span>
+          <div class="interest-name">Mobile Apps</div>
+        </div>
+        <div class="interest-card">
+          <span class="interest-icon">📚</span>
+          <div class="interest-name">Reading</div>
+        </div>
+       
+       
+      </div>
+    </div>
 
-</section>
-
-</main>
-
+  </main>
 </div>
 
 <footer>
-© 2025 Zad Alfayedi
+  © 2025 Zad Alfayedi
 </footer>
 
+<script>
+/* Animate skill bars when they scroll into view */
+function animateBars() {
+  document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+    const rect = bar.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 40 && !bar.dataset.animated) {
+      bar.dataset.animated = 'true';
+      bar.style.width = bar.dataset.width + '%';
+    }
+  });
+}
+
+window.addEventListener('scroll', animateBars);
+window.addEventListener('load', () => setTimeout(animateBars, 200));
+</script>
+
 </body>
-</html>  
+</html>
